@@ -1,0 +1,16 @@
+*.lnk
+jmx_example-*-jmh.jar
+logs/
+.git/
+.gradle/
+.settings/
+build/
+bin/
+gradle/
+gradlew*
+*.exe
+.classpath
+.project
+.class
+.externalToolBuilders/
+*.bin

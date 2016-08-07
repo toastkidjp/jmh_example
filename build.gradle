@@ -1,0 +1,53 @@
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+version = '0.0.1'
+
+def defaultEncoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "me.champeau.gradle:jmh-gradle-plugin:0.3.1"
+  }
+}
+
+apply plugin: "me.champeau.gradle.jmh"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // for use JMH.
+    compile 'org.openjdk.jmh:jmh-core:1.12'
+
+    // Reactive Extensions.
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.projectreactor:reactor-core:2.5.0.M4'
+
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'org.eclipse.collections:eclipse-collections:7.1.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+jmh {
+    jmhVersion = '1.12'
+    warmupIterations = 5
+    iterations = 20
+    fork = 2
+    benchmarkMode = ['thrpt']
+    failOnError = true
+}
+
+jmhJar {
+    destinationDir = projectDir
+}
